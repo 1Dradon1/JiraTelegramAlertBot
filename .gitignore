@@ -1,0 +1,5 @@
+Config.py
+TelegramBot.py
+.venv
+.idea
+__pycache__
