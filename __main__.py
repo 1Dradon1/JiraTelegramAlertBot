@@ -1,7 +1,10 @@
-import telebot
-from telebot.util import quick_markup
 from Config import Config
 from JiraBot import JiraBot
+from TgMessage import TgMessage
+
+import telebot
+from telebot.util import quick_markup
+
 import threading
 import time
 
@@ -21,19 +24,7 @@ def main():
             alert_thread = threading.Thread(target=alert_dadm, args=(issues, bot))
             alert_thread.start()
 
-        time.sleep(10)
-
-
-
-class TgMessage:
-    def __init__(self):
-        self.text = ""
-        self.markup_dict = {}
-
-    def processing_markup(self, issue):
-        self.text += f"<b>{issue.key}</b>: {issue.fields.summary}\n"
-        link = f"{config.issue_link_pattern}/{issue.key}"
-        self.markup_dict[f"{issue.key}"] = {"url": link}
+        time.sleep(config.REFRESH_RATE)
 
 
 def alert_dadm(issues, bot):

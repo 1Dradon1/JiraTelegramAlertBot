@@ -11,3 +11,5 @@ class Config:
 
     issue_link_pattern = f"{JIRA_URL}/project/{JIRA_PROJECT_KEY}/issues" # линк на issue
 
+    REFRESH_RATE = 180
+
