@@ -8,29 +8,27 @@ from telebot.util import quick_markup
 import threading
 import time
 
+
 config = Config()
-
-
-
 
 def main():
     bot = telebot.TeleBot(config.BOT_TOKEN)
     jira = JiraBot(config)
 
     while True:
-        issues = jira.get_open_issues()
+        tickets = jira.get_open_tickets()
 
-        if issues:
-            alert_thread = threading.Thread(target=alert_dadm, args=(issues, bot))
+        if tickets:
+            alert_thread = threading.Thread(target=alert_dadm, args=(tickets, bot))
             alert_thread.start()
 
         time.sleep(config.REFRESH_RATE)
 
 
-def alert_dadm(issues, bot):
+def alert_dadm(tickets, bot):
     message = TgMessage()
-    for issue in issues:
-        message.processing_markup(issue)
+    for ticket in tickets:
+        message.processing_markup(ticket, config.issue_link_pattern)
 
     print(bot.send_message(config.TELEGRAM_GROUP_ID, text=message.text, reply_markup=quick_markup(message.markup_dict),
                            parse_mode="HTML").json)

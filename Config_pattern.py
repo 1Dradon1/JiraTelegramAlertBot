@@ -9,7 +9,7 @@ class Config:
 
     JIRA_PROJECT_KEY = '<JIRA_project_key>'
 
-    issue_link_pattern = f"{JIRA_URL}/project/{JIRA_PROJECT_KEY}/issues" # линк на issue
+    issue_link_pattern = f"{JIRA_URL}/projects/{JIRA_PROJECT_KEY}/issues" # линк на issue
 
     REFRESH_RATE = 180
 
