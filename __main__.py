@@ -1,15 +1,17 @@
-from Config import Config
+import traceback
+
+from Config_Test import Config
 from JiraBot import JiraBot
-from TgMessage import TgMessage
+from ErrorHandler import ErrorHandler
+from Utils import Utils
 
 import telebot
-from telebot.util import quick_markup
-
 import threading
 import time
 
 
 config = Config()
+
 
 def main():
     bot = telebot.TeleBot(config.BOT_TOKEN)
@@ -19,22 +21,31 @@ def main():
         tickets = jira.get_open_tickets()
 
         if tickets:
-            alert_thread = threading.Thread(target=alert_dadm, args=(tickets, bot))
+            alert_thread = threading.Thread(target=Utils.alert_dadm, args=(tickets, bot, config.issue_link_pattern, config))
             alert_thread.start()
 
         time.sleep(config.REFRESH_RATE)
 
 
-def alert_dadm(tickets, bot):
-    message = TgMessage()
-    for ticket in tickets:
-        message.processing_markup(ticket, config.issue_link_pattern)
 
-    print(bot.send_message(config.TELEGRAM_GROUP_ID, text=message.text, reply_markup=quick_markup(message.markup_dict),
-                           parse_mode="HTML").json)
-    del message
 
 
 if __name__ == '__main__':
-    main_thread = threading.Thread(target=main)
-    main_thread.start()
+    while True:
+        try:
+            main()
+
+    # todo начать писать resolve
+        except Exception as e:
+            error_handler = ErrorHandler(e, traceback.format_exc())
+            error_handler.save_error_log()
+
+            if f"JiraError HTTP 502 url: {config.JIRA_URL}/rest/api/2/serverInfo" in str(e):
+                error_handler.handel_jira_connection_error()
+                continue
+
+            else:
+                error_handler.handel_unexpected_error()
+                continue
+
+

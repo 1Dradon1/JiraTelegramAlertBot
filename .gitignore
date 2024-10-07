@@ -3,3 +3,4 @@ TelegramBot.py
 .venv
 .idea
 __pycache__
+Config_Test.py
