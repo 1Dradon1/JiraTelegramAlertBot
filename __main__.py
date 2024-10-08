@@ -1,6 +1,6 @@
 import traceback
 
-from Config_Test import Config
+from configs.Config_Test import Config
 from JiraBot import JiraBot
 from ErrorHandler import ErrorHandler
 from Utils import Utils

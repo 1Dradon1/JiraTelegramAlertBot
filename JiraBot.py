@@ -1,6 +1,5 @@
 import time
 from jira import JIRA
-from Config_Test import Config
 
 
 class JiraBot:
@@ -10,11 +9,11 @@ class JiraBot:
 
 
     def get_open_tickets(self):
-        issues = self.jira.search_issues(Config.JIRA_QUERY['open'], maxResults=False)
+        issues = self.jira.search_issues(self.config.JIRA_QUERY['open'], maxResults=False)
         time.sleep(1)
         works = []
         # works = self.jira.search_issues(Config.JIRA_QUERY['upcoming_works'], maxResults=False)
         return issues + works
 
     def get_approaching_works(self):
-        works = self.jira.search_issues(Config.JIRA_QUERY['test'], maxResults=False)
+        works = self.jira.search_issues(self.config.JIRA_QUERY['test'], maxResults=False)
