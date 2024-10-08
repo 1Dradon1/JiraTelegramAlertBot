@@ -1,6 +1,6 @@
-Config.py
+configs/Config.py
+configs/Config_Test.py
 TelegramBot.py
 .venv
 .idea
 __pycache__
-Config_Test.py

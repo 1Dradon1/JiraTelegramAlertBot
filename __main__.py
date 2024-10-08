@@ -1,6 +1,7 @@
 import traceback
 
-from Config_Test import Config
+from configs.Config_Test import Config
+
 from JiraBot import JiraBot
 from ErrorHandler import ErrorHandler
 from Utils import Utils
@@ -37,7 +38,7 @@ if __name__ == '__main__':
 
     # todo начать писать resolve
         except Exception as e:
-            error_handler = ErrorHandler(e, traceback.format_exc())
+            error_handler = ErrorHandler(e, traceback.format_exc(), config)
             error_handler.save_error_log()
 
             if f"JiraError HTTP 502 url: {config.JIRA_URL}/rest/api/2/serverInfo" in str(e):

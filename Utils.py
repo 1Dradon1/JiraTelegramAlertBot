@@ -1,5 +1,4 @@
 from telebot.util import quick_markup
-import telebot
 import traceback
 
 from TgMessage import TgMessage

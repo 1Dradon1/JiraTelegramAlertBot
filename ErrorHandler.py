@@ -1,12 +1,11 @@
 import time
 import datetime
 import telebot
-from Config_Test import Config
 
 
 class ErrorHandler:
-    def __init__(self, e, trace):
-        self.config = Config()
+    def __init__(self, e, trace, config):
+        self.config = config
         self.bot = telebot.TeleBot(self.config.BOT_TOKEN)
         self.e = e
         self.trace = trace
