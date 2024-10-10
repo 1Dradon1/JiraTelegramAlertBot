@@ -1,6 +1,6 @@
 import traceback
 
-from configs.Config_Test import Config
+from configs.Config import Config
 from JiraBot import JiraBot
 from ErrorHandler import ErrorHandler
 from Utils import Utils
@@ -18,6 +18,7 @@ def main():
     jira = JiraBot(config)
 
     while True:
+        # todo добавить таймаут на запрос и сообщать, если он случается
         tickets = jira.get_open_tickets()
 
         if tickets:
@@ -25,9 +26,6 @@ def main():
             alert_thread.start()
 
         time.sleep(config.REFRESH_RATE)
-
-
-
 
 
 if __name__ == '__main__':
