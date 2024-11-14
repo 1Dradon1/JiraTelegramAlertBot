@@ -3,7 +3,13 @@ class TgMessage:
         self.text = ""
         self.markup_dict = {}
 
-    def processing_markup(self, issue, issue_link_pattern):
+    def append_ticket(self, issue, issue_link_pattern):
+        """
+        appends ticket title and link to TgMessage
+        :param issue: JIRA ticket
+        :param issue_link_pattern: config var
+        :return: 
+        """
         key = issue.key
         summary = issue.fields.summary
 
